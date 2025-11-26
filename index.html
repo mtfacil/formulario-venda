@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ficha de Venda - Shineray Moto Fácil</title>
+  <style>
+    :root {
+      --brand: #d90404;
+      --brand-dark: #b60303;
+      --bg: #05060a;
+      --card: #10131a;
+      --card-soft: #171b24;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --radius: 14px;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: radial-gradient(circle at top, #161b25 0, #05060a 45%, #020308 100%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 12px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 1040px;
+      background: linear-gradient(135deg, #111827, #020617);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid #1f2937;
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 20px 24px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid #1f2937;
+      background: radial-gradient(circle at top left, rgba(217, 4, 4, 0.32), transparent 55%);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #ffffff, #f97373, #7f1d1d);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #111827;
+      font-size: 18px;
+      box-shadow: 0 0 20px rgba(248, 113, 113, 0.45);
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.1);
+      color: #6ee7b7;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .content {
+      padding: 20px 24px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .content {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(217, 4, 4, 0.18), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e5e7eb;
+    }
+
+    .card small {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .input,
+    textarea,
+    select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #020617;
+      color: var(--text);
+      padding: 9px 11px;
+      font-size: 13px;
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.08s ease;
+    }
+
+    .input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 1px rgba(217, 4, 4, 0.45);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .section-title {
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #f3f4f6;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pay-table {
+      margin-top: 4px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #1f2933;
+      background: var(--card-soft);
+    }
+
+    .pay-header,
+    .pay-row {
+      display: grid;
+      grid-template-columns: 0.9fr 0.9fr 1fr 1.4fr;
+      font-size: 11px;
+    }
+
+    .pay-header {
+      background: #020617;
+      border-bottom: 1px solid #1f2933;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+    }
+
+    .pay-header div,
+    .pay-row div {
+      padding: 6px 8px;
+      border-right: 1px solid #1f2933;
+    }
+
+    .pay-row:last-child {
+      border-bottom: 0;
+    }
+
+    .pay-row:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .pay-row:nth-child(even) {
+      background: rgba(15, 23, 42, 0.5);
+    }
+
+    .pay-row input {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #1f2933;
+      background: #020617;
+      color: var(--text);
+      padding: 5px 6px;
+      font-size: 11px;
+    }
+
+    .add-row-btn {
+      margin-top: 6px;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .add-row-btn span {
+      font-size: 14px;
+      color: #22c55e;
+    }
+
+    .side-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .meta-box {
+      padding: 12px;
+      border-radius: var(--radius);
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.3)
+      );
+      border: 1px solid #1f2937;
+    }
+
+    .meta-box h3 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-box p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .progress-bar {
+      margin-top: 8px;
+      height: 7px;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 65%;
+      background: linear-gradient(90deg, #f97316, #ef4444, #dc2626);
+      box-shadow: 0 0 12px rgba(248, 113, 113, 0.6);
+    }
+
+    .footer {
+      padding: 10px 24px 16px;
+      border-top: 1px solid #1f2937;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fef2f2;
+      padding: 10px 22px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 16px 30px rgba(248, 113, 113, 0.35);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+
+    .btn-primary span {
+      font-size: 18px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(248, 113, 113, 0.55);
+      filter: brightness(1.05);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 26px rgba(248, 113, 113, 0.4);
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status.success {
+      color: #bbf7d0;
+    }
+
+    .status.error {
+      color: #fecaca;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #4b5563;
+    }
+
+    .status.success .status-dot {
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+    }
+
+    .status.error .status-dot {
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="brand">
+        <div class="brand-logo">SX</div>
+        <div class="brand-text">
+          <h1>Ficha de Venda • Shineray</h1>
+          <span>Moto Fácil • Registro digital da negociação</span>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-dot"></div>
+        Fluxo oficial de cadastro
+      </div>
+    </div>
+
+    <form id="vendaForm">
+      <div class="content">
+        <!-- COLUNA ESQUERDA -->
+        <div class="card">
+          <div class="card-inner">
+            <h2>Dados da venda</h2>
+            <small>Preencha os campos com atenção. Essas informações vão para o e-mail administrativo e WhatsApp.</small>
+
+            <div class="grid-2">
+              <div>
+                <label for="nomeCliente">Nome do cliente</label>
+                <input id="nomeCliente" class="input" required />
+              </div>
+              <div>
+                <label for="cpf">CPF</label>
+                <input id="cpf" class="input" placeholder="000.000.000-00" required />
+              </div>
+            </div>
+
+            <div class="grid-3" style="margin-top:10px;">
+              <div>
+                <label for="produto">Produto / Moto</label>
+                <input id="produto" class="input" placeholder="Ex: Rio 125 EFI" required />
+              </div>
+              <div>
+                <label for="vendedor">Nome do vendedor</label>
+                <input id="vendedor" class="input" required />
+              </div>
+              <div>
+                <label for="numeroVenda">Nº da venda / OS</label>
+                <input id="numeroVenda" class="input" placeholder="Opcional" />
+              </div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <label for="localEntrega">Local de entrega</label>
+              <input id="localEntrega" class="input" placeholder="Ex: Loja Itamaraju / Endereço do cliente" />
+            </div>
+
+            <div class="section-title">Informações do pagamento</div>
+            <small style="margin-bottom:6px; display:block; color:#9ca3af;">
+              Você pode detalhar as parcelas ou datas importantes. Se não precisar de todas as linhas, deixe em branco.
+            </small>
+
+            <div class="pay-table" id="tabelaPagamentos">
+              <div class="pay-header">
+                <div>Data</div>
+                <div>Valor (R$)</div>
+                <div>Identificação</div>
+                <div>Descrição</div>
+              </div>
+              <!-- Linhas dinâmicas serão inseridas aqui -->
+            </div>
+
+            <button type="button" class="add-row-btn" id="btnAddLinha">
+              <span>+</span> Adicionar linha de pagamento
+            </button>
+
+            <div style="margin-top:16px;">
+              <label for="observacoes" style="font-size:13px;">Observações relevantes</label>
+              <textarea
+                id="observacoes"
+                placeholder="Ex: Combinação de entrega, ajustes na proposta, detalhes de documentação..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUNA DIREITA -->
+        <div class="side-card">
+          <div class="meta-box">
+            <h3>
+              Visão rápida
+              <span style="font-size:18px; color:#facc15;">★</span>
+            </h3>
+            <p>
+              Após salvar, o sistema abre uma mensagem pronta no WhatsApp e um e-mail preenchido com todos os dados
+              desta ficha. Assim ninguém esquece nenhuma informação importante.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="card" style="flex:1;">
+            <div class="card-inner">
+              <h2>Resumo & confirmação</h2>
+              <small>
+                Revise rapidamente os dados antes de enviar. Você ainda poderá editar a mensagem no WhatsApp e no e-mail
+                antes de confirmar o envio.
+              </small>
+
+              <ul style="padding-left:18px; margin:10px 0 0; color:#9ca3af; font-size:12px;">
+                <li>Os dados serão enviados para o administrativo da loja.</li>
+                <li>Uma cópia é aberta no WhatsApp oficial para conferência.</li>
+                <li>Ideal para formalizar vendas e negociações aprovadas.</li>
+              </ul>
+
+              <p style="margin-top:12px; font-size:12px; color:#e5e7eb;">
+                <strong>Dica:</strong> use sempre o mesmo padrão de preenchimento para facilitar a organização e auditoria
+                das vendas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div id="statusMsg" class="status">
+          <div class="status-dot"></div>
+          Pronto para registrar uma nova venda.
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>➤</span> Registrar venda
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // ===========================
+    // CONFIGURAÇÕES EDITÁVEIS
+    // ===========================
+    const EMAIL_DESTINO = "skyagenciadgt@gmail.com"; // <- troque aqui se precisar
+    const WHATSAPP_DESTINO = "557392485646"; // 55 + DDD + número (sem espaços)
+    const MAX_LINHAS_PAGAMENTO = 6;
+
+    const tabelaPagamentos = document.getElementById("tabelaPagamentos");
+    const btnAddLinha = document.getElementById("btnAddLinha");
+    const statusMsg = document.getElementById("statusMsg");
+
+    // cria algumas linhas iniciais
+    let linhasAtuais = 0;
+    function adicionarLinhaPagamento() {
+      if (linhasAtuais >= MAX_LINHAS_PAGAMENTO) {
+        status("Você já adicionou o máximo de linhas de pagamento.", "error");
+        return;
+      }
+
+      const row = document.createElement("div");
+      row.className = "pay-row";
+
+      row.innerHTML = `
+        <div><input type="text" placeholder="dd/mm/aaaa" class="pay-data" /></div>
+        <div><input type="text" placeholder="Ex: 1.200,00" class="pay-valor" /></div>
+        <div><input type="text" placeholder="Ex: Entrada, 1ª parcela" class="pay-id" /></div>
+        <div><input type="text" placeholder="Detalhes adicionais" class="pay-desc" /></div>
+      `;
+      tabelaPagamentos.appendChild(row);
+      linhasAtuais++;
+    }
+
+    // cria 3 linhas por padrão
+    for (let i = 0; i < 3; i++) adicionarLinhaPagamento();
+
+    btnAddLinha.addEventListener("click", adicionarLinhaPagamento);
+
+    function status(texto, tipo = "info") {
+      statusMsg.textContent = "";
+      statusMsg.className = "status";
+
+      if (tipo === "success") statusMsg.classList.add("success");
+      else if (tipo === "error") statusMsg.classList.add("error");
+
+      const dot = document.createElement("div");
+      dot.className = "status-dot";
+      statusMsg.appendChild(dot);
+      statusMsg.appendChild(document.createTextNode(" " + texto));
+    }
+
+    document.getElementById("vendaForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // coleta dados principais
+      const nome = document.getElementById("nomeCliente").value.trim();
+      const cpf = document.getElementById("cpf").value.trim();
+      const produto = document.getElementById("produto").value.trim();
+      const vendedor = document.getElementById("vendedor").value.trim();
+      const numeroVenda = document.getElementById("numeroVenda").value.trim();
+      const localEntrega = document.getElementById("localEntrega").value.trim();
+      const observacoes = document.getElementById("observacoes").value.trim();
+
+      if (!nome || !cpf || !produto || !vendedor) {
+        status("Preencha pelo menos Nome, CPF, Produto e Vendedor.", "error");
+        return;
+      }
+
+      // coleta linhas de pagamento
+      const linhas = Array.from(document.querySelectorAll(".pay-row")).map((row) => {
+        return {
+          data: row.querySelector(".pay-data").value.trim(),
+          valor: row.querySelector(".pay-valor").value.trim(),
+          id: row.querySelector(".pay-id").value.trim(),
+          desc: row.querySelector(".pay-desc").value.trim(),
+        };
+      });
+
+      let textoPagamentos = "";
+      let index = 1;
+      for (const l of linhas) {
+        if (!l.data && !l.valor && !l.id && !l.desc) continue; // pula linha vazia
+        textoPagamentos += `\n${index}. Data: ${l.data || "-"} | Valor: ${
+          l.valor || "-"
+        } | Identificação: ${l.id || "-"} | Descrição: ${l.desc || "-"}`;
+        index++;
+      }
+      if (!textoPagamentos) textoPagamentos = "\n(sem detalhes adicionais)";
+
+      const cabecalho = `DADOS DA VENDA - SHINERAY MOTO FÁCIL\n----------------------------------------`;
+      const corpo =
+        `${cabecalho}\n` +
+        `Cliente: ${nome}\n` +
+        `CPF: ${cpf}\n` +
+        `Produto / Moto: ${produto}\n` +
+        `Vendedor(a): ${vendedor}\n` +
+        `Nº da venda / OS: ${numeroVenda || "-"}\n` +
+        `Local de entrega: ${localEntrega || "-"}\n\n` +
+        `INFORMAÇÕES DO PAGAMENTO:${textoPagamentos}\n\n` +
+        `Observações relevantes:\n${observacoes || "-"}\n\n` +
+        `Registro gerado pelo formulário digital da Shineray Moto Fácil.`;
+
+      const assunto = encodeURIComponent(`Dados da venda - ${nome} (${produto})`);
+      const corpoEncoded = encodeURIComponent(corpo);
+
+      // abre e-mail
+      window.open(
+        `mailto:${encodeURIComponent(EMAIL_DESTINO)}?subject=${assunto}&body=${corpoEncoded}`,
+        "_blank"
+      );
+
+      // abre WhatsApp
+      window.open(`https://wa.me/${WHATSAPP_DESTINO}?text=${corpoEncoded}`, "_blank");
+
+      status("Cadastro gerado! Verifique o WhatsApp e o e-mail antes de enviar.", "success");
+
+      // opcional: limpar formulário
+      // e.target.reset();
+    });
+  </script>
+</body>
+</html>
