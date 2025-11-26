@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SOLICITAÇÃO DE VEÍCULO DA FÁBRICA</title>
+  <title>Ficha de Venda - Shineray Moto Fácil</title>
   <style>
     :root {
       --brand: #d90404;
@@ -476,7 +476,7 @@
           <img src="/logo.png" alt="Shineray Moto Fácil" />
         </div>
         <div class="brand-text">
-          <h1>SOLICITAÇÃO DE VEÍCULO DA FÁBRICA</h1>
+          <h1>Ficha de Venda • Shineray</h1>
           <span>Moto Fácil • Registro digital da negociação</span>
         </div>
       </div>
@@ -516,13 +516,13 @@
               </div>
               <div>
                 <label for="numeroVenda">Nº da venda / OS</label>
-                <input id="numeroVenda" class="input" placeholder="Opcional" />
+                <input id="numeroVenda" class="input" placeholder="Opcional" required />
               </div>
             </div>
 
             <div style="margin-top:10px;">
               <label for="localEntrega">Local de entrega</label>
-              <input id="localEntrega" class="input" placeholder="Ex: Loja Itamaraju / Endereço do cliente" />
+              <input id="localEntrega" class="input" placeholder="Ex: Loja Itamaraju / Endereço do cliente" required />
             </div>
 
             <div class="section-title">Informações do pagamento</div>
@@ -562,7 +562,7 @@
               <span style="font-size:18px; color:#facc15;">★</span>
             </h3>
             <p>
-              Após salvar, o sistema abre uma mensagem pronta no e-mail preenchido com todos os dados
+              Após salvar, o sistema abre uma mensagem pronta no WhatsApp e um e-mail preenchido com todos os dados
               desta ficha. Assim ninguém esquece nenhuma informação importante.
             </p>
             <div class="progress-bar">
@@ -574,13 +574,13 @@
             <div class="card-inner">
               <h2>Resumo & confirmação</h2>
               <small>
-                Revise rapidamente os dados antes de enviar. Você ainda poderá editar a mensagem no e-mail
+                Revise rapidamente os dados antes de enviar. Você ainda poderá editar a mensagem no WhatsApp e no e-mail
                 antes de confirmar o envio.
               </small>
 
               <ul style="padding-left:18px; margin:10px 0 0; color:#6b7280; font-size:12px;">
                 <li>Os dados serão enviados para o administrativo da loja.</li>
-                <li>Uma cópia é aberta no E-mail oficial para conferência.</li>
+                <li>Uma cópia é aberta no WhatsApp oficial para conferência.</li>
                 <li>Ideal para formalizar vendas e negociações aprovadas.</li>
               </ul>
 
@@ -677,8 +677,9 @@
       const localEntrega = document.getElementById("localEntrega").value.trim();
       const observacoes = document.getElementById("observacoes").value.trim();
 
-      if (!nome || !cpf || !produto || !vendedor) {
-        status("Preencha pelo menos Nome, CPF, Produto e Vendedor.", "error");
+      // agora todos os campos principais são obrigatórios (menos observações)
+      if (!nome || !cpf || !produto || !vendedor || !numeroVenda || !localEntrega) {
+        status("Preencha todos os campos obrigatórios da ficha de venda.", "error");
         return;
       }
 
@@ -694,11 +695,15 @@
 
       let textoPagamentos = "";
       let index = 1;
+      let temPagamento = false;
+
       for (let i = 0; i < linhas.length; i++) {
         const l = linhas[i];
         if (!l.data && !l.valor && !l.id && !l.desc) {
           continue; // pula linha vazia
         }
+
+        temPagamento = true;
 
         textoPagamentos +=
           "\n" +
@@ -714,8 +719,11 @@
 
         index++;
       }
-      if (!textoPagamentos) {
-        textoPagamentos = "\n(sem detalhes adicionais)";
+
+      // exige pelo menos uma linha de pagamento preenchida
+      if (!temPagamento) {
+        status("Preencha pelo menos uma linha de pagamento.", "error");
+        return;
       }
 
       const cabecalho =
@@ -764,12 +772,7 @@
         "_blank"
       );
 
-      // abre WhatsApp (mantido)
-      window.open(
-        "https://wa.me/" + WHATSAPP_DESTINO + "?text=" + corpoEncoded,
-        "_blank"
-      );
-
+      
       status(
         "Cadastro gerado! Verifique o Word, o WhatsApp e o e-mail antes de enviar.",
         "success"
@@ -779,5 +782,6 @@
       // e.target.reset();
     });
   </script>
+  
 </body>
 </html>
